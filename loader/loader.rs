@@ -103,14 +103,13 @@ pub extern "win64" fn efi_main(hdl: uefi::Handle, sys: uefi::SystemTable) -> uef
     
     let bitmap = bs.allocate_pool::<Pixel>(mem::size_of::<Pixel>() * AREA).unwrap();
     let mut c = RGB::new();
-    writeln!(writer, "red: {}", 0xff);
     loop {
         for x in 0..255{
             c.hsv2rgb(x,255,255);
             let px = Pixel::new(c.r,c.g,c.b);
             
             let mut writer = Writer {};
-//            writeln!(writer, "red: {:x}, blue: {:x}, green: {:x}\n\r", px.red, px.blue, px.green).unwrap();
+            writeln!(writer, "red: {:x}, blue: {:x}, green: {:x}\r", px.red, px.blue, px.green).unwrap();
             let mut count = 0;
             while count < AREA {
                 unsafe{
